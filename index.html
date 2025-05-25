@@ -58,7 +58,14 @@
     staff: staff
   })
 })
-      .then(res => res.ok ? "記録しました！" : "送信に失敗しました")
+      .then(res => res.text())
+.then(msg => {
+  document.getElementById("result").textContent = msg;
+})
+.catch(err => {
+  console.error(err);
+  alert("送信エラーが発生しました");
+});
       .then(msg => document.getElementById("result").textContent = msg)
       .catch(err => alert("送信エラー"));
     }

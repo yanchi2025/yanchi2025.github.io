@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>資産棚卸し</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    input, button { margin: 1em 0; font-size: 1.2em; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>資産管理</h1>
+  <label>資産ID</label>
+  <input id="assetId" readonly>
+
+  <label>棚卸日</label>
+  <input id="inventoryDate" readonly>
+
+  <label>担当者</label>
+  <select id="staff">
+  <option value="">選択してください</option>
+  <option value="岡本">岡本</option>
+  <option value="山本">山本</option>
+  <option value="田村">田村</option>
+　<option value="大﨑">大﨑</option>
+</select>
+
+  <button onclick="submitInventory()">棚卸しを記録する</button>
+  <p id="result"></p>
+
+  <script>
+    // URLの?id=から資産IDを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById("assetId").value = urlParams.get("id") || "未指定";
+
+    // 今日の日付を入力
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("inventoryDate").value = today;
+
+    // ボタンを押したら送信
+    function submitInventory() {
+      const assetId = document.getElementById("assetId").value;
+      const date = document.getElementById("inventoryDate").value;
+      const staff = document.getElementById("staff").value;
+
+      if (!staff) {
+        alert("担当者名を入力してください");
+        return;
+      }
+
+      // ↓ここでデータをAPIに送信（Google Sheets連携など）
+      fetch("https://your-api.com/api/inventory", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ asset_id: assetId, date: date, staff: staff })
+      })
+      .then(res => res.ok ? "記録しました！" : "送信に失敗しました")
+      .then(msg => document.getElementById("result").textContent = msg)
+      .catch(err => alert("送信エラー"));
+    }
+  </script>
+</body>
+</html>

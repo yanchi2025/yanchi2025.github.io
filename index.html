@@ -49,11 +49,15 @@
       }
 
       // ↓ここでデータをAPIに送信（Google Sheets連携など）
-      fetch("https://your-api.com/api/inventory", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ asset_id: assetId, date: date, staff: staff })
-      })
+      fetch("https://script.google.com/u/0/home/projects/1PEQSEvpIL7uqAOB-JuVxbv-qaclnFbXguHOZlR0JW0e3EZ9Q5Dr9-Prm/edit", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    asset_id: assetId,
+    date: date,
+    staff: staff
+  })
+})
       .then(res => res.ok ? "記録しました！" : "送信に失敗しました")
       .then(msg => document.getElementById("result").textContent = msg)
       .catch(err => alert("送信エラー"));

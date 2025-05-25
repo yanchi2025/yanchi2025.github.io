@@ -49,7 +49,7 @@
       }
 
       // ↓ここでデータをAPIに送信（Google Sheets連携など）
-      fetch("https://script.google.com/macros/s/AKfycbxROyfeQcI8zT_wxZ-2-s45J6LKF-eBqA2hnNNy2Svu56Uia5srz5Onf0uMYc2jkalgTg/exec", {
+fetch("https://script.google.com/macros/s/AKfycbxROyfeQcI8zT_wxZ-2-s45J6LKF-eBqA2hnNNy2Svu56Uia5srz5Onf0uMYc2jkalgTg/exec", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -58,7 +58,7 @@
     staff: staff
   })
 })
-      .then(res => res.text())
+.then(res => res.text())
 .then(msg => {
   document.getElementById("result").textContent = msg;
 })
@@ -66,9 +66,6 @@
   console.error(err);
   alert("送信エラーが発生しました");
 });
-      .then(msg => document.getElementById("result").textContent = msg)
-      .catch(err => alert("送信エラー"));
-    }
   </script>
 </body>
 </html>
